@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Цех{% endblock %}
+
+{% block content %}
+<div class="conteiner">
+  <h3>В партии в цеху:</h3>
+    <h5>Готовые:</h5>
+    {% for order in orders_c %}
+      <div class="conteiner">
+        <h6>{{ order.owner.firm}}</h6>
+        <ul>
+          <li> Замена ЗПУ - {% if order.repair %} {{ order.repair_quantity }} {% else %} Нет {% endif %} </li>
+          <li>Огнетушители
+            <ul>
+              {% for item in order.positions.all %}
+                <li>{{ item.fire_ex.type }} : {{ item.quantity }} шт</li>
+              {% endfor %}
+            </ul>
+          </li>
+        </ul>
+      </div>
+    {% endfor %}
+</div>
+{% endblock %}
